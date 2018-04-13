@@ -14,11 +14,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers("/", "/login**")
+//                    .antMatchers(new String[]{"/**"}).permitAll()
+                    .antMatchers(new String[]{"/login"}).permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
+                    .failureUrl("/login?error")
+                    .loginPage("/login")
                     .permitAll()
-                    .antMatchers("**").permitAll()
-                    .anyRequest()
-                    .authenticated();
+                    .and()
+                    .logout()
+                    .permitAll();
         }
 
     @Bean

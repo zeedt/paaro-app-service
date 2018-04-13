@@ -1,5 +1,15 @@
 package com.zeed.isms.config.security;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.common.ExpiringOAuth2RefreshToken;
@@ -12,10 +22,14 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.JdkSerializationStrategy;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 
-import java.util.*;
-
 @SuppressWarnings("ALL")
 public class RedisTokenStore implements TokenStore {
+
+    private Logger logger = LoggerFactory.getLogger(RedisTokenStore.class.getName());
+
+    static final long serialVersionUID = 600L;
+
+
     private static final String ACCESS = "access:";
     private static final String AUTH_TO_ACCESS = "auth_to_access:";
     private static final String AUTH = "auth:";
@@ -91,8 +105,11 @@ public class RedisTokenStore implements TokenStore {
         }
 
         OAuth2AccessToken accessToken = this.deserializeAccessToken(bytes);
-        if (accessToken != null && !key.equals(this.authenticationKeyGenerator.extractKey(this.readAuthentication(accessToken.getValue())))) {
-            this.storeAccessToken(accessToken, authentication);
+        if (accessToken != null) {
+            OAuth2Authentication storedAuthentication = this.readAuthentication(accessToken.getValue());
+            if (storedAuthentication == null || !key.equals(this.authenticationKeyGenerator.extractKey(storedAuthentication))) {
+                this.storeAccessToken(accessToken, authentication);
+            }
         }
 
         return accessToken;
@@ -399,6 +416,25 @@ public class RedisTokenStore implements TokenStore {
         } else {
             return Collections.emptySet();
         }
+    }
+
+    public OAuth2AccessToken findTokensByUserName(String userName) {
+        byte[] approvalKey = serialize(UNAME_TO_ACCESS + userName);
+
+        byte[] bytes = null;
+        RedisConnection conn = getConnection();
+        try {
+            bytes = conn.get(approvalKey);
+        } finally {
+            try {
+                conn.close();
+            }
+            catch(Exception ex){
+                logger.error( ex.getMessage());
+            }
+        }
+        OAuth2AccessToken accessToken = deserializeAccessToken(bytes);
+        return accessToken;
     }
 }
 

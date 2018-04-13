@@ -4,6 +4,7 @@ import com.zeed.isms.rest.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -21,7 +22,7 @@ import java.util.*;
 @RequestMapping("/")
 public class UserController {
 
-    @Value("${oauth.authentication.url:http://127.0.0.1:9071/oauth/token}")
+    @Value("${oauth.authentication.url:http://127.0.0.1:8011/oauth/token}")
     public String oauthUrl;
 
     @Autowired
@@ -38,7 +39,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "login")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public String loginUser(Principal principal, @RequestParam Map<String,String> loginDetails ) {
 //        Map<String,String> loginDetails = new HashMap<>();
 //        loginDetails.put("username","superuser");
@@ -53,7 +54,24 @@ public class UserController {
         String url = oauthUrl + "?grant_type=password&username=" + loginDetails.get("username") + "&password=" + loginDetails.get("password");
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity =
                 restClient.apiPostWithHttpEntity(url, OAuth2AccessToken.class, request, headers);
+        return "redirect:/home";
+    }
+
+
+    @RequestMapping(value = "wwwww", method = RequestMethod.POST)
+    public String logins(Principal principal){
         return "login";
+    }
+    @RequestMapping(value = "wwwww", method = RequestMethod.GET)
+    public String loginss(Principal principal){
+        return "login";
+    }
+    @ResponseBody
+    @RequestMapping(value = "getHash", method = RequestMethod.GET)
+    public HashMap<String,String> getDD(Principal principal){
+        HashMap<String,String> hashMap = new HashMap<String,String>();
+        hashMap.put("Answer","answer");
+        return hashMap;
     }
 
 
