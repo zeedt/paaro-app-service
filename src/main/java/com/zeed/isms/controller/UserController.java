@@ -41,9 +41,6 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String loginUser(Principal principal, @RequestParam Map<String,String> loginDetails ) {
-//        Map<String,String> loginDetails = new HashMap<>();
-//        loginDetails.put("username","superuser");
-//        loginDetails.put("password","password");
         String base64encodedString = Base64.getEncoder().encodeToString("isms-service:secret".getBytes());
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Basic " + base64encodedString);
