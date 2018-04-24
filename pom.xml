@@ -34,6 +34,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -102,6 +107,12 @@
 			<groupId>com.zeed.generic</groupId>
 			<artifactId>generic-utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zeed.isms</groupId>
+			<artifactId>isms-lib</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
