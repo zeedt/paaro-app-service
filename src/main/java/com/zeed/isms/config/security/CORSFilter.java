@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class SimpleCORSFilter implements Filter {
+public class CORSFilter implements Filter {
 
     @Value("${headers.access.allowed-origins:*}")
     private String accessControlAllowedDomain;

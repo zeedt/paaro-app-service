@@ -28,8 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
     @Bean
-    public SimpleCORSFilter corsFilter() {
-        return new SimpleCORSFilter();
+    public CORSFilter corsFilter() {
+        return new CORSFilter();
     }
 
 }
