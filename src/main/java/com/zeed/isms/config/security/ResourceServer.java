@@ -40,11 +40,13 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
 //                .antMatchers("/getHash").permitAll()
+                .antMatchers("/regDetails/**").permitAll()
 //                .antMatchers("/wwwww").permitAll()
                 .antMatchers(
                         new String[]{"/app/**",
                                 "/login",
 //                                "/getHash",
+                                "/regDetails/**",
                                 "**/home",
                                 "/css/**",
                                 "/js/**",
