@@ -1,4 +1,4 @@
-package com.zeed.isms.config.security;
+package com.zeed.paaro.config.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;

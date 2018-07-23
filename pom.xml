@@ -81,7 +81,7 @@
 
 		<dependency>
 			<groupId>com.zeed.usermanagement</groupId>
-			<artifactId>user-lib</artifactId>
+			<artifactId>paaro-user-lib</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -104,6 +104,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.zeed.generic</groupId>
 			<artifactId>generic-utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -111,7 +116,7 @@
 
 		<dependency>
 			<groupId>com.zeed.isms</groupId>
-			<artifactId>isms-lib</artifactId>
+			<artifactId>paaro-app-lib</artifactId>
             <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

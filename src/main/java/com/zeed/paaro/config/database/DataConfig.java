@@ -1,8 +1,10 @@
-package com.zeed.isms.config.database;
+package com.zeed.paaro.config.database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -14,19 +16,23 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.zeed.isms.lib.repository", entityManagerFactoryRef = "localContainerEntityManagerFactoryBean" ,transactionManagerRef = "platformTransactionManager" )
+@EnableJpaRepositories(basePackages = "com.zeed.paaro.lib.repository", entityManagerFactoryRef = "localContainerEntityManagerFactoryBean" ,transactionManagerRef = "platformTransactionManager" )
 public class DataConfig {
 
-    @Value("${usersource.jdbc.user}")
+
+    @Autowired
+    private Environment environment;
+
+    @Value("${appsource.jdbc.user}")
     private String username;
-    @Value("${usersource.jdbc.password}")
+    @Value("${appsource.jdbc.password}")
     private String password;
-    @Value("${usersource.jdbc.url}")
+    @Value("${appsource.jdbc.url}")
     private String url;
-    @Value("${usersource.jdbc.driverClassName}")
+    @Value("${appsource.jdbc.driverClassName}")
     private String driverClassName;
 
-@Bean
+    @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);

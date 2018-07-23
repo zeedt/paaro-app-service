@@ -1,4 +1,4 @@
-package com.zeed.isms.config.security;
+package com.zeed.paaro.config.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

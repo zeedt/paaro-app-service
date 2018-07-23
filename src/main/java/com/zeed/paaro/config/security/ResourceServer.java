@@ -1,16 +1,17 @@
-package com.zeed.isms.config.security;
+package com.zeed.paaro.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import redis.clients.jedis.JedisShardInfo;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class ResourceServer extends ResourceServerConfigurerAdapter{
@@ -22,17 +23,14 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
     @Value("${oauth2.verifierKey}")
     private String oauth2VerifierKey;
 
-    @Value("${cosmos.redis.host}")
-    private String redisHost;
-
-    @Value("${cosmos.redis.port}")
-    private String redisPort;
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(resourceId)
                 .authenticationManager(new OAuth2AuthenticationManager())
-                .tokenStore(tokenStore());
+                .tokenStore(jdbcTokenStore());
     }
 
     @Override
@@ -64,17 +62,12 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
                 .disable();
     }
 
+
     @Bean
-    public TokenStore tokenStore() {
-        return new RedisTokenStore(jedisConnectionFactory());
+    public JdbcTokenStore jdbcTokenStore() {
+        return new JdbcTokenStore(dataSource);
     }
-    private JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(redisHost);
-        jedisConnectionFactory.setPort(Integer.valueOf(redisPort));
-        jedisConnectionFactory.setShardInfo(new JedisShardInfo(redisHost, redisPort));
-        return jedisConnectionFactory;
-    }
+
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();

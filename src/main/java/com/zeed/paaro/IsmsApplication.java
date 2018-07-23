@@ -1,4 +1,4 @@
-package com.zeed.isms;
+package com.zeed.paaro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @EnableResourceServer
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.zeed.isms","com.zeed.generic","com.zeed.usermanagement.request"})
+@ComponentScan(basePackages = {"com.zeed.paaro","com.zeed.generic","com.zeed.usermanagement.request"})
 public class IsmsApplication {
 
 	public static void main(String[] args) {
