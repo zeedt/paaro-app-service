@@ -5,6 +5,7 @@ import com.zeed.usermanagement.request.UserDetailsRequest;
 import com.zeed.usermanagement.requestmodels.PasswordResetRequestModel;
 import com.zeed.usermanagement.requestmodels.UserUpdateRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,14 @@ public class UserController {
     private UserDetailsRequest userDetailsRequester;
 
     @ResponseBody
+    @PreAuthorize(value = "hasAnyAuthority('DEACTIVATE_USER')")
     @RequestMapping (value = "/deactivateUser", method = RequestMethod.GET)
     public ManagedUserModelApi deactivateUser(Principal principal, @RequestParam("email") String email) {
         return userDetailsRequester.deactivateUser(email);
     }
 
     @ResponseBody
+    @PreAuthorize(value = "hasAnyAuthority('ACTIVATE_USER')")
     @RequestMapping (value = "/activateUser", method = RequestMethod.GET)
     public ManagedUserModelApi activateUser(Principal principal, @RequestParam("email") String email) {
         return userDetailsRequester.activateUser(email);

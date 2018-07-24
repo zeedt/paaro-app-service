@@ -58,12 +58,12 @@ public class DataConfig {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan(
-                new String[] {"com.zeed.isms.lib.models" });
+                new String[] {"com.zeed.paaro.lib.models" });
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.dialect","org.hibernate.dialect.SQLServerDialect");
+        properties.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
         em.setJpaPropertyMap(properties);
         return em;
     }
