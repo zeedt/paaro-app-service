@@ -94,18 +94,33 @@ public class WalletController {
     }
 
     
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "fund_wallet", method = RequestMethod.POST)
     @ResponseBody
-    public WalletResponse fundWallet(@RequestParam("currency") String currency)  {
+    public WalletResponse fundWallet(@RequestBody WalletRequest walletRequest)  {
 
         try {
-            return walletService.findWalletsByCurrency(currency);
+            return walletService.fundWallet(walletRequest);
         } catch (Exception e) {
-            logger.error("Error occurred while fetching wallet by currency", e);
+            logger.error("Error occurred while funding wallet ", e);
             return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
         }
         
     }
+
+    @RequestMapping(value = "find_wallet_funding_transactions", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletResponse findAllWalletTransactions(@RequestBody WalletRequest walletRequest)  {
+
+        try {
+            return walletService.findALlFundingWalletTransactionsByUserWallet(walletRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while funding wallet ", e);
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
+        }
+
+    }
+
+
     
 
 

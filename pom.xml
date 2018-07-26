@@ -115,7 +115,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.zeed.isms</groupId>
+			<groupId>com.zeed.paaro</groupId>
 			<artifactId>paaro-app-lib</artifactId>
             <version>0.0.1-SNAPSHOT</version>
 		</dependency>

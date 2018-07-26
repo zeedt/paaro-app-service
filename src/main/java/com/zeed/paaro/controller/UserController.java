@@ -1,6 +1,8 @@
 package com.zeed.paaro.controller;
 
+import com.zeed.paaro.lib.services.UserService;
 import com.zeed.usermanagement.apimodels.ManagedUserModelApi;
+import com.zeed.usermanagement.models.ManagedUser;
 import com.zeed.usermanagement.request.UserDetailsRequest;
 import com.zeed.usermanagement.requestmodels.PasswordResetRequestModel;
 import com.zeed.usermanagement.requestmodels.UserUpdateRequestModel;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -17,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserDetailsRequest userDetailsRequester;
+
+    @Autowired
+    private UserService userService;
 
     @ResponseBody
     @PreAuthorize(value = "hasAnyAuthority('DEACTIVATE_USER')")
@@ -43,5 +49,14 @@ public class UserController {
     public ManagedUserModelApi resetUserPassword(Principal principal, @RequestBody PasswordResetRequestModel requestModel) {
         return userDetailsRequester.resetUserPassword(requestModel);
     }
+
+
+    @ResponseBody
+    @RequestMapping (value = "/login", method = RequestMethod.POST)
+    public Object login(@RequestBody ManagedUser managedUser) throws Exception {
+        return userService.login(managedUser);
+    }
+
+
 
 }
