@@ -44,7 +44,7 @@ public class WireMockTest {
         String url = "http://127.0.0.1:8011/oauth/token" + "?grant_type=password&username=" + "superuser" + "&password=" + "password";
 //        ResponseEntity<OAuth2AccessToken> managedUser = restClient.apiPostWithHttpEntity(url, OAuth2AccessToken.class,request,headers);
         RestApiClient restApiClient = new RestApiClient();
-        Object object = restApiClient.apiPostAndGetClass(url,OAuth2AccessToken.class,request,headers);
+        Object object = restApiClient.apiPostAndGetClass(url,OAuth2AccessToken.class,request,headers,false);
         System.out.println("Done");
     }
     @Test

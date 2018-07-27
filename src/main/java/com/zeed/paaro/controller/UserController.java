@@ -50,13 +50,18 @@ public class UserController {
         return userDetailsRequester.resetUserPassword(requestModel);
     }
 
+    @ResponseBody
+    @RequestMapping (value = "/getUserDetailsByEmail", method = RequestMethod.GET)
+    public ManagedUserModelApi resetUserPassword(@RequestParam("email") String email) throws Exception {
+        return userDetailsRequester.getManagedUserDetailsByEmail(email);
+    }
+
 
     @ResponseBody
     @RequestMapping (value = "/login", method = RequestMethod.POST)
     public Object login(@RequestBody ManagedUser managedUser) throws Exception {
         return userService.login(managedUser);
     }
-
 
 
 }
