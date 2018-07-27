@@ -120,6 +120,19 @@ public class WalletController {
 
     }
 
+    @RequestMapping(value = "find_wallet_funding_transactions_by_email_and_currency", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletResponse findAllWalletTransactionsByEmail(@RequestBody WalletRequest walletRequest)  {
+
+        try {
+            return walletService.findALlFundingWalletTransactionsByEmail(walletRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while funding wallet ", e);
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
+        }
+
+    }
+
 
     
 
