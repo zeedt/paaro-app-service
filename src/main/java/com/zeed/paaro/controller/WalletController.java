@@ -88,7 +88,7 @@ public class WalletController {
         try {
             return walletService.addWallet(walletRequest);
         } catch (Exception e) {
-            logger.error("Error occurred while fetching wallet by currency", e);
+            logger.error("Error occurred while mapping wallet to user", e);
             return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
         }
     }
@@ -102,7 +102,7 @@ public class WalletController {
             return walletService.fundWallet(walletRequest);
         } catch (Exception e) {
             logger.error("Error occurred while funding wallet ", e);
-            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while funding wallet");
         }
         
     }

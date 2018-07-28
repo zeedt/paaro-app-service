@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @EnableResourceServer
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.zeed.paaro","com.zeed.generic","com.zeed.usermanagement.request"})
+@ComponentScan(basePackages = {"com.zeed.paaro","com.zeed.generic","com.zeed.usermanagement.request","com.zeed.usermanagement.models"})
 public class IsmsApplication {
 
 	public static void main(String[] args) {
