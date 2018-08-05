@@ -114,7 +114,20 @@ public class WalletController {
         try {
             return walletService.findALlFundingWalletTransactionsByUserWallet(walletRequest);
         } catch (Exception e) {
-            logger.error("Error occurred while funding wallet ", e);
+            logger.error("Error occurred while fetching wallet funding transactions by currency ", e);
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
+        }
+
+    }
+
+    @RequestMapping(value = "find_wallet_funding_transactions/paged", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletResponse findAllWalletTransactionsPaged(@RequestBody WalletRequest walletRequest)  {
+
+        try {
+            return walletService.findALlFundingWalletTransactionsByUserWalletPaged(walletRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching paged wallet funding transactions by currency", e);
             return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
         }
 
@@ -127,8 +140,20 @@ public class WalletController {
         try {
             return walletService.findALlFundingWalletTransactionsByEmail(walletRequest);
         } catch (Exception e) {
-            logger.error("Error occurred while funding wallet ", e);
-            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");
+            logger.error("Error occurred while fetching wallet funding transactions by email and currency", e);
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency and email");
+        }
+
+    }
+    @RequestMapping(value = "find_wallet_funding_transactions_by_email_and_currency/paged", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletResponse findAllWalletTransactionsByEmailPaged(@RequestBody WalletRequest walletRequest)  {
+
+        try {
+            return walletService.findALlFundingWalletTransactionsByEmailPaged(walletRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching paged wallet funding transactions by email and currency", e);
+            return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency and email");
         }
 
     }

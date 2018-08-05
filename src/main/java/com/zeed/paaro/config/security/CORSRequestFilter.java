@@ -12,10 +12,10 @@ import java.io.IOException;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CORSFilter implements Filter {
+public class CORSRequestFilter implements Filter {
 
     @Value("${headers.access.allowed-origins:*}")
-    private String accessControlAllowedDomain;
+    private String accessControlAllowedServer;
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) {
         HttpServletResponse response = (HttpServletResponse) res;
@@ -23,27 +23,19 @@ public class CORSFilter implements Filter {
 
         String originHeader = request.getHeader("Origin");
 
-        if (originHeader != null && !originHeader.isEmpty() && accessControlAllowedDomain.contains(originHeader)) {
+        if (originHeader != null && !originHeader.isEmpty() && accessControlAllowedServer.contains(originHeader)) {
+            response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Origin", originHeader);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Headers", "x-requested-with,origin,accept,content-type,access-control-request-method,access-control-request-headers,authorization");
         }
-
-        String ee = request.getMethod();
-        if (!request.getMethod().equals("OPTIONS")) {
+        if (!"OPTIONS".equals(request.getMethod())) {
             try {
-//                chain.doFilter(req, res);
                 chain.doFilter(new RequestWrapper((HttpServletRequest)req), res);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (ServletException e) {
-                // TODO Auto-generated catch block
+            } catch (IOException | ServletException e) {
                 e.printStackTrace();
             }
-        } else {
         }
     }
 

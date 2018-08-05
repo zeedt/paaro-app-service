@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/wallet")
@@ -48,6 +45,18 @@ public class WalletTransferController {
         }
 
     }
+    @RequestMapping(value = "find_wallet_transfer_transactions/paged", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletTransferRequestResponse findAllLoggedInUserWalletTransferTransactionsPaged(@RequestBody WalletTransferRequest walletTransferRequest)  {
+
+        try {
+            return transferService.findAllTransferWalletTransactionsByUserWalletPaged(walletTransferRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions for logged in user ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transaction by email and currency for logged in user");
+        }
+
+    }
 
     @PreAuthorize(value = "hasAnyAuthority('FETCH_TRANSFER_TRANSACTIONS_BY_EMAIL_AND_CURRENCY')")
     @RequestMapping(value = "find_wallet_transfer_transactions_by_email_and_currency", method = RequestMethod.POST)
@@ -56,6 +65,19 @@ public class WalletTransferController {
 
         try {
             return transferService.findAllTransferWalletTransactionsByUserWalletAndEmail(walletTransferRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions by email and currency ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transactions by email and currency");
+        }
+
+    }
+    @PreAuthorize(value = "hasAnyAuthority('FETCH_TRANSFER_TRANSACTIONS_BY_EMAIL_AND_CURRENCY')")
+    @RequestMapping(value = "find_wallet_transfer_transactions_by_email_and_currency/paged", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletTransferRequestResponse findAllWalletTransferTransactionsByEmailAndCurrencyPaged(@RequestBody WalletTransferRequest walletTransferRequest)  {
+
+        try {
+            return transferService.findAllTransferWalletTransactionsByUserWalletAndEmailPaged(walletTransferRequest);
         } catch (Exception e) {
             logger.error("Error occurred while fetching wallet transfer transactions by email and currency ", e);
             return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transactions by email and currency");
@@ -76,6 +98,19 @@ public class WalletTransferController {
         }
 
     }
+    @PreAuthorize(value = "hasAnyAuthority('FETCH_TRANSFER_TRANSACTIONS_BY_EMAIL')")
+    @RequestMapping(value = "find_wallet_transfer_transactions_by_email/paged", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletTransferRequestResponse findAllWalletTransferTransactionsByEmailPaged(@RequestBody WalletTransferRequest walletTransferRequest)  {
+
+        try {
+            return transferService.findAllTransferWalletTransactionsByEmailPaged(walletTransferRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions by email with page ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transactions for logged in user by email");
+        }
+
+    }
 
     @RequestMapping(value = "find_all_unsettled_transactions_for_logged_in_user/customer_logged", method = RequestMethod.GET)
     @ResponseBody
@@ -83,6 +118,18 @@ public class WalletTransferController {
 
         try {
             return transferService.findAllCustomerLoggedTransferWalletTransactions();
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transaction by currency");
+        }
+
+    }
+    @RequestMapping(value = "find_all_unsettled_transactions_for_logged_in_user/customer_logged/paged", method = RequestMethod.GET)
+    @ResponseBody
+    public WalletTransferRequestResponse findAllUnsettledTransactionsForLoggedInUserPaged(@RequestParam("pageSize") int pageSize, @RequestParam("pageNo") int pageNo)  {
+
+        try {
+            return transferService.findAllCustomerLoggedTransferWalletTransactionsPaged(pageSize, pageNo);
         } catch (Exception e) {
             logger.error("Error occurred while fetching wallet transfer transactions ", e);
             return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transaction by currency");

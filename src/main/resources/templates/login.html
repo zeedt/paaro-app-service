@@ -1,14 +1,205 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     <title>Title</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/smartadmin-production-plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/smartadmin-production.min.css" />
+    <link rel="stylesheet" href="assets/css/smartadmin-rtl.min.css" />
+    <link rel="stylesheet" href="assets/css/smartadmin-skins.min.css" />
+    <link rel="stylesheet" href="assets/css/demo.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <script src="assets/js/libs/Base64.js" type="text/javascript"></script>
+    <!--<script type="text/javascript" src="js/libs/jquery-3.2.1.min.js" />-->
+    <!--<script type="text/javascript" src="js/libs/jquery-ui.min.js" />-->
 </head>
-<body>
-    <form th:action="@{/login}" method="post">
-        <input type="text" name="managedUser" id="managedUser" placeholder="enter managedUser here" />
-        <input type="password" name="password" id="password" placeholder="enter password here" />
-        <input type="submit" />
-    </form>
+<body class="animated fadeInDown" id="extr-page">
+<header id="header">
+
+    <div id="logo-group">
+        <span id="logo"> <img src="assets/img/logo.png" alt="SmartAdmin" /> </span>
+    </div>
+
+    <span id="extr-page-header-space"> <span class="hidden-mobile hidden-xs">Need an account?</span> <a href="register.html" class="btn btn-danger">Create account</a> </span>
+
+</header>
+
+<div id="main" role="main">
+
+    <!-- MAIN CONTENT -->
+    <div id="content" class="container">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+                <h1 class="txt-color-red login-header-big">Paaro</h1>
+                <div class="hero">
+
+                    <div class="pull-left login-desc-box-l">
+                        <h4 class="paragraph-header">It's Okay to be Smart. Experience the simplicity of Paaro, everywhere you go!</h4>
+                        <div class="login-app-icons">
+                        </div>
+                    </div>
+
+                    <img src="./../../assets/img/demo/iphoneview.png" class="pull-right display-image" alt="" style="width:210px" />
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <h5 class="about-heading">About Paaro - Are you up to date?</h5>
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <h5 class="about-heading">Not just your average template!</h5>
+                        <p>
+                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                <div class="well no-padding">
+                    <form action="#" id="login-form" class="smart-form client-form">
+                        <header>
+                            Sign In
+                        </header>
+                        <fieldset>
+
+                            <section>
+                                <label class="label">Username</label>
+                                <label class="input"> <i class="icon-append fa fa-user"></i>
+                                    <input type="username" name="username" id="username" />
+                                    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your username</b></label>
+                            </section>
+
+                            <section>
+                                <label class="label">Password</label>
+                                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                                    <input type="password" name="password" id="password" />
+                                    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
+                                <div class="note">
+                                    <a href="forgotpassword.html">Forgot password?</a>
+                                </div>
+                            </section>
+
+                            <section>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="remember" checked="" />
+                                    <i></i>Stay signed in</label>
+                            </section>
+                        </fieldset>
+                        <footer>
+                            <button type="button" class="btn btn-primary" value="sign in" onclick="login()">Sign in </button>
+                        </footer>
+                    </form>
+
+                </div>
+
+                <h5 class="text-center"> - Or sign in using -</h5>
+
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="javascript:void(0);" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
+<!--================================================== -->
+
+<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+<script src="assets/js/plugin/pace/pace.min.js"></script>
+<script src="assets/js/libs/jquery-3.2.1.min.js"></script>
+<script src="assets/js/libs/jquery-ui.min.js"></script>
+
+<!-- IMPORTANT: APP CONFIG -->
+<script src="assets/js/app.config.js"></script>
+
+<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+    <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+
+<!-- BOOTSTRAP JS -->
+<script src="assets/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- JQUERY VALIDATE -->
+<script src="assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+<!-- JQUERY MASKED INPUT -->
+<script src="assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+<!--[if IE 8]>
+
+<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+<![endif]-->
+
+<!-- MAIN APP JS FILE -->
+<script src="assets/js/app.min.js"></script>
+
+<script>
+    $(function() {
+        // Validation
+
+        $("#login-form").validate({
+          // Rules for form validation
+          rules : {
+            email : {
+              required : true,
+              minlenght : 4,
+              maxlenght : 20
+            },
+            password : {
+              required : true,
+              minlength : 8,
+              maxlength : 20
+            }
+          },
+
+          // Messages for form validation
+          messages : {
+            email : {
+              required : 'Please enter your username',
+            },
+            password : {
+              required : 'Please enter your password'
+            }
+          },
+
+          // Do not change code below
+          errorPlacement : function(error, element) {
+            error.insertAfter(element.parent());
+          }
+        });
+    });
+</script>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-43548732-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+<script src="assets/template-js/login.js"> </script>
+
 </html>

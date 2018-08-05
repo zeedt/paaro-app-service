@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 public class ResourceServer extends ResourceServerConfigurerAdapter{
 
 
-    @Value("${isms.oauth.resource.id}")
+    @Value("${paaro.oauth.resource.id}")
     private String resourceId;
 
     @Value("${oauth2.verifierKey}")
@@ -38,22 +38,18 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/user/login").permitAll()
-//                .antMatchers("/getHash").permitAll()
                 .antMatchers("/regDetails/**").permitAll()
-//                .antMatchers("/wwwww").permitAll()
                 .antMatchers(
                         new String[]{"/app/**",
                                 "/login",
-//                                "/getHash",
                                 "/regDetails/**",
                                 "**/home",
                                 "/css/**",
                                 "/js/**",
+                                "/",
                                 "/dashboard/**",
                                 "/image/**",
-                                "/assets/**",
-                                "/localusers/**",
-                                "/activations/**"
+                                "/assets/**"
                         }
                 ).permitAll()
                 .anyRequest()

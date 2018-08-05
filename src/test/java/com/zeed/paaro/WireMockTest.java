@@ -14,9 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -69,7 +67,17 @@ public class WireMockTest {
 //        Object object = userService.login(map);
     }
 
-//    @Test
-//    public void
+    @Test
+    public void testSomething() {
+        List<Integer> values = new ArrayList<>();
+        values.add(20);
+        values.add(30);
+
+        for (Integer i:values) {
+            i = 0;
+        }
+        System.out.println("Done");
+
+    }
 
 }
