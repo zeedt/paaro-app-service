@@ -46,7 +46,13 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
                                 "**/home",
                                 "/css/**",
                                 "/js/**",
+                                "/img/**",
+                                "/fonts/**",
+                                "/font-awesome/**",
+                                "/template-js/**",
+                                "/template-css/**",
                                 "/",
+                                "/favicon.ico",
                                 "/dashboard/**",
                                 "/image/**",
                                 "/assets/**"
