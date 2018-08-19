@@ -38,6 +38,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/view/users").permitAll()
+                .antMatchers("/view/view-authorities").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/regDetails/**").permitAll()
                 .antMatchers(
