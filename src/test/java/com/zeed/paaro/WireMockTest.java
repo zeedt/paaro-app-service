@@ -1,6 +1,7 @@
 package com.zeed.paaro;
 
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
+import com.zeed.generic.DateUtils;
 import com.zeed.generic.RestApiClient;
 import com.zeed.paaro.lib.services.UserService;
 import org.junit.ClassRule;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.text.ParseException;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -25,6 +27,9 @@ public class WireMockTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    DateUtils dateUtils;
 
     @ClassRule
     public static WireMockClassRule wiremock = new WireMockClassRule(
@@ -76,6 +81,13 @@ public class WireMockTest {
         for (Integer i:values) {
             i = 0;
         }
+        System.out.println("Done");
+
+    }
+
+    @Test
+    public void testdate() throws ParseException {
+        Date date = dateUtils.convertStringToDate("Sunday 29th July, 2018 08:18 AM","EEE d'th' MMMMM, yyyy HH:mm a");
         System.out.println("Done");
 
     }

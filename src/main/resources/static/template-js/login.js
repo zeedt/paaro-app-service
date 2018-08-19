@@ -34,17 +34,3 @@ function login() {
 
 
 }
-
-function redirectToPage(url) {
-    $.ajax({
-        type : "GET",
-        beforeSend: function(request) {
-            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
-        },
-        url : url,
-        error : function () {
-            localStorage.clear();
-            window.location.href = "/login";
-        }
-    })
-}

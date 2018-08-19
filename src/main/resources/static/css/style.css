@@ -6425,3 +6425,7 @@ body.skin-3 {
     display: none;
   }
 }
+
+.dataTables-example tbody tr {
+  cursor: pointer;
+}
