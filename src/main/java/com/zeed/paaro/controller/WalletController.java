@@ -112,7 +112,7 @@ public class WalletController {
     public WalletResponse findAllWalletTransactions(@RequestBody WalletRequest walletRequest)  {
 
         try {
-            return walletService.findALlFundingWalletTransactionsByUserWallet(walletRequest);
+            return walletService.findAllFundingWalletTransactionsByUserWallet(walletRequest);
         } catch (Exception e) {
             logger.error("Error occurred while fetching wallet funding transactions by currency ", e);
             return WalletResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet by currency");

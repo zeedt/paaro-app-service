@@ -4,6 +4,7 @@ import com.zeed.paaro.lib.apirequestmodel.WalletTransferRequest;
 import com.zeed.paaro.lib.apiresponsemodel.WalletTransferRequestResponse;
 import com.zeed.paaro.lib.enums.ApiResponseCode;
 import com.zeed.paaro.lib.services.TransferService;
+import com.zeed.paaro.lib.services.WalletEmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class WalletTransferController {
 
     @Autowired
     private TransferService transferService;
+
 
     private Logger logger = LoggerFactory.getLogger(WalletTransferController.class.getName());
 

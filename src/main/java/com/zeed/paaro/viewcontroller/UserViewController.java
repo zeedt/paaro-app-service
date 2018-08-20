@@ -4,6 +4,7 @@ import com.zeed.paaro.lib.apirequestmodel.WalletRequest;
 import com.zeed.paaro.lib.apirequestmodel.WalletTransferRequest;
 import com.zeed.paaro.lib.apiresponsemodel.WalletResponse;
 import com.zeed.paaro.lib.apiresponsemodel.WalletTransferRequestResponse;
+import com.zeed.paaro.lib.audit.AuditLog;
 import com.zeed.paaro.lib.repository.WalletRepository;
 import com.zeed.paaro.lib.services.TransferService;
 import com.zeed.paaro.lib.services.WalletService;
@@ -15,6 +16,8 @@ import com.zeed.usermanagement.repository.AuthorityRepository;
 import com.zeed.usermanagement.repository.ManagedUserAuthorityRepository;
 import com.zeed.usermanagement.repository.ManagedUserRepository;
 import com.zeed.usermanagement.request.UserDetailsRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,6 +57,8 @@ public class UserViewController {
 
     @Autowired
     private ManagedUserAuthorityRepository managedUserAuthorityRepository;
+
+    private Logger logger = LoggerFactory.getLogger(UserViewController.class.getName());
 
     @RequestMapping(value = "/users")
     public ModelAndView viewAuthorities(@RequestParam(name = "pageNo", required = false) Integer pageNo, @RequestParam(name = "filter", required = false) String filter) {
@@ -146,6 +151,10 @@ public class UserViewController {
     @PreAuthorize(value = "hasAnyAuthority('FETCH_TRANSFER_TRANSACTIONS_BY_EMAIL')")
     @RequestMapping(value = "/user/findAllFundWalletTransactionsByEmailPaged", method = RequestMethod.POST)
     public ModelAndView getUserFundWalletTransactionsByEmail(@RequestBody WalletRequest walletRequest) {
+
+        String ipAddress = AuditLog.getIpAddressOfMachine();
+
+        logger.info("IpAddress is " + ipAddress);
 
         WalletResponse walletResponse = null;
 

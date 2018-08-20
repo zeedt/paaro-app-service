@@ -27,7 +27,7 @@ function login() {
             window.location.href = "/";
         },
         error : function (error) {
-            $("#error-message").val(error.message);
+            $("#error-message").html(error.message);
             console.log("Error " + JSON.stringify(error));
         }
     })

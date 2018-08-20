@@ -31,9 +31,46 @@
 			<version>1.5.8.RELEASE</version>
 		</dependency>
 		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>3.0.8.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>thymeleaf</artifactId>
+					<groupId>org.thymeleaf</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>3.0.8.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>thymeleaf-spring4</artifactId>
+					<groupId>org.thymeleaf</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>thymeleaf</artifactId>
+					<groupId>org.thymeleaf</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>thymeleaf-layout-dialect</artifactId>
+					<groupId>nz.net.ultraq.thymeleaf</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>thymeleaf-spring4</artifactId>
+					<groupId>org.thymeleaf</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,7 +133,6 @@
 			<version>2.4.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-contract-wiremock -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-contract-wiremock</artifactId>
