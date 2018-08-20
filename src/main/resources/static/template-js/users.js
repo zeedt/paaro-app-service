@@ -444,6 +444,7 @@ function createAdminUser() {
         "lastName" : lastName,
         "firstName" : firstName,
         "email" : email,
+        "phoneNumber" : phoneNumber
     };
 
     $.ajax({
