@@ -212,4 +212,17 @@ public class UserViewController {
     }
 
 
+    @PreAuthorize(value = "hasAnyAuthority('CREATE_ADMIN_USER')")
+    @RequestMapping(value = "/user/createadminuserview")
+    public ModelAndView createAdminUserView() throws Exception {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("usersview/createAdminUser");
+
+        return modelAndView;
+
+    }
+
+
+
 }

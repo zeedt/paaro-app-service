@@ -48,36 +48,10 @@
                 </li> -->
 
                 <li>
-                    <a href="form-index.html"><i class="fa fa-edit"></i><span class="nav-label">Authority</span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="/view/view-authorities">View Authorities</a></li>
-                    </ul>
+                    <a href="/view/view-authorities"><i class="fa fa-edit"></i><span class="nav-label">Authority</span></a>
                 </li>
                 <li>
                     <a href="/view/users"><i class="fa fa-edit"></i><span class="nav-label">View users</span></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-file"></i><span class="nav-label">PAAR</span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="form-add.html">Pre Arrival Assessmet Report</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-files-o"></i><span class="nav-label">BILLS</span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="form-add.html">Import Bills</a></li>
-                        <li><a href="form-view.html">Export Bills</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span class="label label-warning pull-right">16/24</span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="mailbox.html">Inbox</a></li>
-                        <li><a href="mail_detail.html">Email view</a></li>
-                        <li><a href="mail_compose.html">Compose email</a></li>
-                        <li><a href="email_template.html">Email templates</a></li>
-                    </ul>
                 </li>
             </ul>
 
@@ -207,7 +181,7 @@
                         <div class="ibox-title">
                             <h5>Previous forms`</h5>
                             <div class="ibox-tools">
-                                <a href="#" class="btn btn-primary btn-xs">Add new admin user</a>
+                                <button onclick="showAddAdminUserModal()" class="btn btn-primary btn-xs">Add new admin user</button>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -333,6 +307,7 @@
 <!-- Mainly scripts -->
 <script src="../js/jquery-2.1.1.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootbox.min.js"></script>
 <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 

@@ -48,12 +48,12 @@ function activateOrDeactivateUser(email, id) {
             }
             if (e.status == '403') {
                 if (activate) {
-                    alert("You are not authorised to activate user");
+                    bootbox.alert("You are not authorised to activate user");
                 } else {
-                    alert("You are not authorised to deactivate user");
+                    bootbox.alert("You are not authorised to deactivate user");
                 }
             } else {
-                alert("Unable to complete operation due to system error");
+                bootbox.alert("Unable to complete operation due to system error");
             }
         }
     });
@@ -104,7 +104,7 @@ function showUserModal(email) {
             }
 
             if (e.status == '403') {
-                alert("You are not authorised to view full user details");
+                bootbox.alert("You are not authorised to view full user details");
                 return;
             }
         },
@@ -150,7 +150,7 @@ function showUserTransactionModal(email, pageNo) {
             }
 
             if (e.status == '403') {
-                alert("You are not authorised to view transaction details of user");
+                bootbox.alert("You are not authorised to view transaction details of user");
                 return;
             }
         },
@@ -219,7 +219,7 @@ function showAddAuthorityModal(email) {
             }
 
             if (e.status == '403') {
-                alert("You are not authorised to view transaction details of user");
+                bootbox.alert("You are not authorised to view transaction details of user");
                 return;
             }
         },
@@ -239,7 +239,7 @@ function showAddAuthorityModal(email) {
 function addSelectedAuthorities() {
     var authoritiesString =  $("#authorities").val();
     if (authoritiesString == undefined || authoritiesString == null || authoritiesString == 'null' || authoritiesString == '') {
-        alert("No authority selected");
+        bootbox.alert("No authority selected");
         return;
     }
 
@@ -270,14 +270,19 @@ function addSelectedAuthorities() {
                 return;
             }
             if (e.status == '403') {
-                    alert("You are not authorised to add authority to user");
-
+                    bootbox.alert("You are not authorised to add authority to user");
+                    return;
             } else {
-                alert("Unable to complete operation due to system error");
+                bootbox.alert("Unable to complete operation due to system error");
+                return;
             }
         },
         success : function (data) {
-            alert(data.message);
+            if (data.responseStatus == "SYSTEM_ERROR") {
+                bootbox.alert(("Unable to map authorities. You may not have the authority to perform this action"))
+                return;
+            }
+            bootbox.alert(data.message);
             showUserModal(email);
         }
     });
@@ -318,7 +323,7 @@ function showUserFundWalletTransactionsModal(email, pageNo) {
             }
 
             if (e.status == '403') {
-                alert("You are not authorised to view transaction details of user");
+                bootbox.alert("You are not authorised to view transaction details of user");
                 return;
             }
         },
@@ -382,16 +387,92 @@ function deleteUserAuthority(userId, authorityId) {
                 window.location.href = "/login";
             }
             if (e.status == '403') {
-                alert("You are not authorised to delete user's authority");
+                bootbox.alert("You are not authorised to delete user's authority");
                 return;
             } else {
-                alert("System errror occured");
+                bootbox.alert("System errror occured");
             }
         },
         success : function (data) {
-            alert(data);
+            bootbox.alert(data);
             showUserModal(email);
         }
     })
 
 }
+
+function showAddAdminUserModal() {
+
+    $.ajax({
+        type : "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        url : "/view/user/createadminuserview",
+        error : function (e) {
+            console.log("status code is " + e.status);
+            if (e.status == '401') {
+                console.log("status code is " + 401);
+                localStorage.clear();
+                window.location.href = "/login";
+                return;
+            }
+
+            if (e.status == '403') {
+                bootbox.alert("You are not authorised to create admin user");
+                return;
+            }
+        },
+        success : function (data) {
+            $("#modal-user-content").html(data);
+            console.log("data generated");
+            $("#view-user").modal();
+        }
+    });
+
+}
+
+
+function createAdminUser() {
+
+    var email = $("#adminUserEmail").val();
+    var phoneNumber = $("#adminUserPhoneNumber").val();
+    var firstName = $("#adminUserFirstName").val();
+    var lastName = $("#adminUserLastName").val();
+
+    var requestData = {
+        "lastName" : lastName,
+        "firstName" : firstName,
+        "email" : email,
+    };
+
+    $.ajax({
+        type : "POST",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        async:false,
+        data: JSON.stringify(requestData),
+        contentType: "application/json; charset=utf-8",
+        url : "/user/createAdminUser",
+        error : function (e) {
+            console.log("status code is " + e.status);
+            if (e.status == '401') {
+                console.log("status code is " + 401);
+                localStorage.clear();
+                window.location.href = "/login";
+                return;
+            }
+
+            if (e.status == '403') {
+                bootbox.alert("You are not authorised to create admin user");
+                return;
+            }
+        },
+        success : function (data) {
+            bootbox.alert(data.message);
+        }
+    });
+
+}
+

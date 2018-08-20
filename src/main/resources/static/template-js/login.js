@@ -19,16 +19,21 @@ function login() {
         async:false,
         success : function (result) {
             localStorage.clear();
-            localStorage.setItem("paaro_access_token",result.access_token );
-            localStorage.setItem("email",result.email );
-            localStorage.setItem("firstName",result.firstName );
-            localStorage.setItem("lastName",result.lastName);
-            localStorage.setItem("role",result.category );
+
+            if (result.message != null && result.message != 'null' && result.message != undefined && result.message != "") {
+                $("#error-message").html("<h3>"+result.message+"</h3>");
+                return;
+            }
+
+            localStorage.setItem("paaro_access_token", result.access_token);
+            localStorage.setItem("email", result.email);
+            localStorage.setItem("firstName", result.firstName);
+            localStorage.setItem("lastName", result.lastName);
+            localStorage.setItem("role", result.category);
             window.location.href = "/";
         },
         error : function (error) {
-            $("#error-message").html(error.message);
-            console.log("Error " + JSON.stringify(error));
+            $("#error-message").html("<h3>An internal server error occurred. Please contact admin if this persist</h3>");
         }
     })
 

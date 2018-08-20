@@ -63,5 +63,11 @@ public class UserController {
         return userService.login(managedUser);
     }
 
+    @ResponseBody
+    @PreAuthorize(value = "hasAnyAuthority('CREATE_ADMIN_USER')")
+    @RequestMapping (value = "/createAdminUser", method = RequestMethod.POST)
+    public ManagedUserModelApi resetUserPassword(@RequestBody ManagedUser managedUser) throws Exception {
+        return userDetailsRequester.createAdminUser(managedUser);
+    }
 
 }
