@@ -2,8 +2,18 @@
 var paaro_host = "http://127.0.0.1:7071/";
 var user_host = "http://127.0.0.1:8011/";
 
-function login() {
+$body = $("body");
 
+$(document).bind({
+    ajaxStart: function() { $body.addClass("loading");    },
+    ajaxStop: function() { $body.removeClass("loading"); }
+});
+
+// var paaro_host = "http://159.65.53.209:7071/";
+// var user_host = "http://159.65.53.209:8011/";
+
+function login() {
+    $("#error-message").html("");
     var email = $("#email").val();
     var password = $("#password").val();
     var base64String = Base64.encode("paaro-service:secret");

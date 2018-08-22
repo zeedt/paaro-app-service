@@ -1,3 +1,9 @@
+$body = $("body");
+
+$(document).bind({
+    ajaxStart: function() { $body.addClass("loading");    },
+    ajaxStop: function() { $body.removeClass("loading"); }
+});
 
 redirectToPage();
 
@@ -471,7 +477,31 @@ function createAdminUser() {
             }
         },
         success : function (data) {
-            bootbox.alert(data.message);
+            if (data.responseStatus == "ALREADY_EXIST") {
+                bootbox.alert("Email already exist");
+                return;
+            }
+            bootbox.alert(""+data.message+"");
+        }
+    });
+
+}
+
+function logoutUser() {
+
+    $.ajax({
+        type : "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        url : "/view/logout",
+        error : function (e) {
+                localStorage.clear();
+                window.location.href = "/login";
+        },
+        success : function (data) {
+            localStorage.clear();
+            window.location.href = "/login";
         }
     });
 

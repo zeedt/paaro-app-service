@@ -40,6 +40,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
                 .antMatchers("/view/users").permitAll()
                 .antMatchers("/view/view-authorities").permitAll()
                 .antMatchers("/user/login").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/regDetails/**").permitAll()
                 .antMatchers(
                         new String[]{"/app/**",
@@ -54,7 +55,6 @@ public class ResourceServer extends ResourceServerConfigurerAdapter{
                                 "/template-js/**",
                                 "/template-pages/**",
                                 "/template-css/**",
-                                "/",
                                 "/authority/**",
                                 "/favicon.ico",
                                 "/dashboard/**",

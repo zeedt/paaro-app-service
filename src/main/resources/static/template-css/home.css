@@ -55,3 +55,67 @@
 /*a .list-group-item {*/
   /*color: #ffffff;*/
 /*}*/
+.loading-modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  url('../img/FhHRx.gif')
+  50% 50%
+  no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .loading-modal {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loading-modal {
+  display: block;
+}
+
+
+.table-div {
+  background-color: #ffffff !important;
+  /* text-align: center; */
+  text-align: center;
+  height: 200px;
+  display: table-cell;
+  vertical-align: middle;
+  width: inherit;
+  font-size: 40px;
+  white-space: nowrap;
+}
+
+.loading-modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  url('../img/FhHRx.gif')
+  50% 50%
+  no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .loading-modal {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loading-modal {
+  display: block;
+}

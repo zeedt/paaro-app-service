@@ -223,6 +223,18 @@ public class UserViewController {
 
     }
 
+    @ResponseBody
+    @RequestMapping (value = "/logout", method = RequestMethod.GET)
+    public String logout() throws Exception {
+        try {
+            userDetailsRequest.logout();
+        } catch (Exception e) {
+            logger.error("Error occured while logging out due to " + e);
+        }
+
+        return "login";
+
+    }
 
 
 }
