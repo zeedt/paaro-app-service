@@ -139,4 +139,33 @@ public class WalletTransferController {
 
     }
 
+    @RequestMapping(value = "compute-charges-and-values", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletTransferRequestResponse computeChargesAndValuesForWallet(@RequestBody WalletTransferRequest walletTransferRequest)  {
+
+        try {
+            return transferService.computeChargesAndValues(walletTransferRequest, true);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while computing charges and values");
+        }
+
+    }
+
+
+    @RequestMapping(value = "initiateTransferRequestForUser", method = RequestMethod.POST)
+    @ResponseBody
+    public WalletTransferRequestResponse initiateTransferRequestForUser(@RequestBody WalletTransferRequest walletTransferRequest)  {
+
+        try {
+            return transferService.initiateTransferRequestForUser(walletTransferRequest);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching wallet transfer transactions ", e);
+            return WalletTransferRequestResponse.returnResponseWithCode(ApiResponseCode.SYSTEM_ERROR, "System error occurred while fetching wallet transfer transaction by currency");
+        }
+
+    }
+
+
+
 }

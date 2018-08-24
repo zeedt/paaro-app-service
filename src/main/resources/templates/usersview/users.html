@@ -245,6 +245,7 @@
                                             <th>Status</th>
                                             <th>Transfer.Trans</th>
                                             <th>Funding.Trans</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -275,6 +276,9 @@
                                             </td>
                                             <td th:onclick="'javascript : showUserFundWalletTransactionsModal(\''+${user.email}+'\');'">
                                                 <span><i class="fa fa-eye fa-2x" style="color: #0000cc"></i></span>
+                                            </td>
+                                            <td th:onclick="'javascript : showAddTransferTransactionRequestModal(\''+${user.email}+'\');'">
+                                                <span><i class="fa fa-plus fa-2x" style="color: #0000cc"></i></span>
                                             </td>
                                         </tr>
 

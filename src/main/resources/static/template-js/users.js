@@ -1,5 +1,7 @@
 $body = $("body");
 
+var token = "";
+
 $(document).bind({
     ajaxStart: function() { $body.addClass("loading");    },
     ajaxStop: function() { $body.removeClass("loading"); }
@@ -507,3 +509,183 @@ function logoutUser() {
 
 }
 
+function showAddTransferTransactionRequestModal(email) {
+
+    $.ajax({
+        type : "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        url : "/view/user/showAddWalletTransactionView?email="+email,
+        error : function (e) {
+            console.log("status code is " + e.status);
+            if (e.status == '401') {
+                console.log("status code is " + 401);
+                localStorage.clear();
+                window.location.href = "/login";
+                return;
+            }
+
+            if (e.status == '403') {
+                bootbox.alert("You are not authorised to initiate transaction for user");
+                return;
+            }
+        },
+        success : function (data) {
+            $("#modal-user-content").html(data);
+            console.log("data generated");
+            $("#view-user").modal();
+            $("#user-email").val(email);
+        }
+    });
+
+}
+
+function setRateWithCurrency(rate) {
+    $("#rate").val(rate);
+}
+
+function computeAndGenerateToken() {
+    $("#information").css("visibility","hidden");
+    $("#total-amount").html("");
+    $("#total-charge").html("");
+    $("#equivalent-amount").html("");
+    $("#exchange-rate").html("");
+    $("#charge-rate").html("");
+    $("#token").val("");
+    var email = $("#user-email").val();
+
+    var toCurrency = $("#toCurrency").val();
+    var fromCurrency = $("#fromWallet").val();
+    var amount = $("#amount").val();
+
+    var requestData = {
+        "fromCurrencyType" : fromCurrency,
+        "toCurrencyType" : toCurrency,
+        "actualAmount" : amount,
+        "email" : email
+    };
+
+    $.ajax({
+        type : "POST",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        url : "/wallet/compute-charges-and-values",
+        data: JSON.stringify(requestData),
+        contentType: "application/json; charset=utf-8",
+        error : function (e) {
+            $("#information").css("visibility","hidden");
+            console.log("status code is " + e.status);
+            if (e.status == '401') {
+                console.log("status code is " + 401);
+                localStorage.clear();
+                window.location.href = "/login";
+                return;
+            }
+
+            if (e.status == '403') {
+                bootbox.alert("You are not authorised to initiate transaction for user");
+                return;
+            }
+            $("#information").css("visibility","hidden");
+            $("#total-amount").html("");
+            $("#total-charge").html("");
+            $("#equivalent-amount").html("");
+            $("#exchange-rate").html("");
+            $("#charge-rate").html("");
+            $("#token").val("");
+
+            bootbox.alert("Unable to complete the process");
+        },
+        success : function (data) {
+            if (data.responseStatus != "SUCCESSFUL") {
+                bootbox.alert(""+data.message+"");
+                $("#information").css("visibility","hidden");
+                $("#total-amount").html("");
+                $("#total-charge").html("");
+                $("#equivalent-amount").html("");
+                $("#exchange-rate").html("");
+                $("#charge-rate").html("");
+                $("#token").val("");
+
+                return;
+            }
+            $("#information").css("visibility","visible");
+            $("#total-amount").html(data.totalAmount);
+            $("#total-charge").html(data.charges);
+            $("#equivalent-amount").html(data.equivalentAmount);
+            $("#exchange-rate").html(data.exchangeRate);
+            $("#charge-rate").html(data.chargeRate);
+            $("#token").val("");
+            generateAndSendTokenToUser();
+        }
+    });
+
+}
+
+function logTransferRequest() {
+
+    var toCurrency = $("#toCurrency").val();
+    var fromCurrency = $("#fromWallet").val();
+    var amount = $("#amount").val();
+    var email = $("#user-email").val();
+    var narration = $("#narration").val();
+    var accountName = $("#accountName").val();
+    var accountNumber = $("#accountNumber").val();
+    var token = $("#token").val();
+
+    var requestData = {
+        "fromCurrencyType" : fromCurrency,
+        "toCurrencyType" : toCurrency,
+        "actualAmount" : amount,
+        "email": email,
+        "narration": narration,
+        "toAccountName": accountName,
+        "toAccountNumber": accountNumber,
+        "token": token,
+    };
+
+    $.ajax({
+        type : "POST",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
+        },
+        url : "/wallet/initiateTransferRequestForUser",
+        data: JSON.stringify(requestData),
+        contentType: "application/json; charset=utf-8",
+        error : function (e) {
+            $("#information").css("visibility","hidden");
+            console.log("status code is " + e.status);
+            if (e.status == '401') {
+                console.log("status code is " + 401);
+                localStorage.clear();
+                window.location.href = "/login";
+                return;
+            }
+
+            if (e.status == '403') {
+                bootbox.alert("You are not authorised to initiate transaction for user");
+                return;
+            }
+
+            bootbox.alert("Unable to complete the process");
+        },
+        success : function (data) {
+
+            bootbox.alert("" + data.message + "");
+
+        }
+    });
+
+}
+
+
+
+
+function generateAndSendTokenToUser(){
+
+
+
+
+}

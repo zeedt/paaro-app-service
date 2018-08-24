@@ -5,6 +5,7 @@ import com.zeed.paaro.lib.apirequestmodel.WalletTransferRequest;
 import com.zeed.paaro.lib.apiresponsemodel.WalletResponse;
 import com.zeed.paaro.lib.apiresponsemodel.WalletTransferRequestResponse;
 import com.zeed.paaro.lib.audit.AuditLog;
+import com.zeed.paaro.lib.repository.CurrencyRepository;
 import com.zeed.paaro.lib.repository.WalletRepository;
 import com.zeed.paaro.lib.services.TransferService;
 import com.zeed.paaro.lib.services.WalletService;
@@ -54,6 +55,9 @@ public class UserViewController {
 
     @Autowired
     private WalletService walletService;
+
+    @Autowired
+    private CurrencyRepository currencyRepository;
 
     @Autowired
     private ManagedUserAuthorityRepository managedUserAuthorityRepository;
@@ -218,6 +222,20 @@ public class UserViewController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("usersview/createAdminUser");
+
+        return modelAndView;
+
+    }
+
+    @PreAuthorize(value = "hasAnyAuthority('INITIATE_TRANSFER_REQUEST_FOR_USER')")
+    @RequestMapping(value = "/user/showAddWalletTransactionView")
+    public ModelAndView showAddWalletTransactionView(@RequestParam("email") String email) throws Exception {
+
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("usersview/addTransferTransaction");
+        modelAndView.addObject("wallets",walletService.findWalletsByEmail(email).getWalletList());
+        modelAndView.addObject("currencies",currencyRepository.findAll());
 
         return modelAndView;
 

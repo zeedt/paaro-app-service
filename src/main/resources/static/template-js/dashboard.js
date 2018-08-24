@@ -9,6 +9,7 @@ $(document).bind({
 
 function loadTransferRequestTransactions(pageNo, filter) {
 
+
     if (pageNo == 'null' || pageNo == null || pageNo == undefined || pageNo == "" || pageNo == "undefined") {
         pageNo = 0;
     }
@@ -21,12 +22,15 @@ function loadTransferRequestTransactions(pageNo, filter) {
         pageNo = 0;
     }
 
+    var fdate = $("#fromDate").val();
+    var tdate = $("#toDate").val();
+
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
         },
-        url: "/view/dashboard/findAllWalletTransferTransactionsPaged?pageNo="+pageNo+"&filter="+filter,
+        url: "/view/dashboard/findAllWalletTransferTransactionsPaged?pageNo="+pageNo+"&filter="+filter+"&fromDate="+fdate+"&toDate="+tdate,
         async:false,
         // data: JSON.stringify(requestData),
         contentType: "application/json; charset=utf-8",
@@ -48,6 +52,8 @@ function loadTransferRequestTransactions(pageNo, filter) {
             $("#dashboard-content").html(data);
             console.log("data generated");
             $("#transfer-filter").val(filter);
+            $("#fromDate").val(fdate);
+            $("#toDate").val(tdate);
             // $("#view-user").modal();
             $("#transfer-filter").focus();
         }
@@ -68,12 +74,15 @@ function loadFundingRequestTransactions(pageNo, filter) {
         pageNo = 0;
     }
 
+    var fdate = $("#fromDate").val();
+    var tdate = $("#toDate").val();
+
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
         },
-        url: "/view/dashboard/findAllWalletFundingTransactionsPaged?pageNo="+pageNo+"&filter="+filter,
+        url: "/view/dashboard/findAllWalletFundingTransactionsPaged?pageNo="+pageNo+"&filter="+filter+"&fromDate="+fdate+"&toDate="+tdate,
         async:false,
         // data: JSON.stringify(requestData),
         contentType: "application/json; charset=utf-8",
@@ -104,6 +113,9 @@ function loadFundingRequestTransactions(pageNo, filter) {
 
 function loadTransferRequestTransactionsByButton(pageNo, filter) {
 
+    var fdate = $("#fromDate").val();
+    var tdate = $("#toDate").val();
+
     var filter = $("#transfer-filter").val();
     if (pageNo == undefined || pageNo == null || pageNo < 0) {
         pageNo = 0;
@@ -114,7 +126,7 @@ function loadTransferRequestTransactionsByButton(pageNo, filter) {
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
         },
-        url: "/view/dashboard/findAllWalletTransferTransactionsPaged?pageNo="+pageNo+"&filter="+filter,
+        url: "/view/dashboard/findAllWalletTransferTransactionsPaged?pageNo="+pageNo+"&filter="+filter+"&fromDate="+fdate+"&toDate="+tdate,
         async:false,
         // data: JSON.stringify(requestData),
         contentType: "application/json; charset=utf-8",
@@ -136,6 +148,8 @@ function loadTransferRequestTransactionsByButton(pageNo, filter) {
             $("#dashboard-content").html(data);
             console.log("data generated");
             $("#transfer-filter").val(filter);
+            $("#fromDate").val(fdate);
+            $("#toDate").val(tdate);
             // $("#view-user").modal();
             $("#transfer-filter").focus();
         }
@@ -150,12 +164,16 @@ function loadFundingRequestTransactionsByButton(pageNo, filter) {
         pageNo = 0;
     }
 
+
+    var fdate = $("#fromDate").val();
+    var tdate = $("#toDate").val();
+
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("paaro_access_token"));
         },
-        url: "/view/dashboard/findAllWalletFundingTransactionsPaged?pageNo="+pageNo+"&filter="+filter,
+        url: "/view/dashboard/findAllWalletFundingTransactionsPaged?pageNo="+pageNo+"&filter="+filter+"&fromDate="+fdate+"&toDate="+tdate,
         async:false,
         // data: JSON.stringify(requestData),
         contentType: "application/json; charset=utf-8",
@@ -252,3 +270,14 @@ function filterFundingRequestTransaction() {
 
     return loadFundingRequestTransactions(0,filter);
 }
+
+function downloadTransferRequestTransaction() {
+
+    var fdate = $("#fromDate").val();
+    var tdate = $("#toDate").val();
+
+    var filter = $("#transfer-filter").val();
+    window.location.href = "/view/dashboard/downloadWalletTransferTransactions?filter="+filter+"&fromDate="+fdate+"&toDate="+tdate+"&access_token="+localStorage.getItem("paaro_access_token");
+
+}
+
